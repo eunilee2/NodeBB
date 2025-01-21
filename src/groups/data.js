@@ -91,6 +91,7 @@ function modifyGroup(group, fields) {
 }
 
 function setGroupDefaults(group) {
+	console.log("eunice lee eylee2");
 	group.userTitleEnabled = ([null, undefined].includes(group.userTitleEnabled)) ? 1 : group.userTitleEnabled;
 	group.labelColor = validator.escape(String(group.labelColor || '#000000'));
 	group.textColor = validator.escape(String(group.textColor || '#ffffff'));

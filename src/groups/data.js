@@ -70,14 +70,7 @@ function modifyGroup(group, fields) {
 		db.parseIntFields(group, intFields, fields);
 
 		escapeGroupData(group);
-		group.userTitleEnabled = ([null, undefined].includes(group.userTitleEnabled)) ? 1 : group.userTitleEnabled;
-		group.labelColor = validator.escape(String(group.labelColor || '#000000'));
-		group.textColor = validator.escape(String(group.textColor || '#ffffff'));
-		group.icon = validator.escape(String(group.icon || ''));
-		group.createtimeISO = utils.toISOString(group.createtime);
-		group.private = ([null, undefined].includes(group.private)) ? 1 : group.private;
-		group.memberPostCids = group.memberPostCids || '';
-		group.memberPostCidsArray = group.memberPostCids.split(',').map(cid => parseInt(cid, 10)).filter(Boolean);
+		setGroupDefaults(group);
 
 		group['cover:thumb:url'] = group['cover:thumb:url'] || group['cover:url'];
 
@@ -95,6 +88,17 @@ function modifyGroup(group, fields) {
 
 		group['cover:position'] = validator.escape(String(group['cover:position'] || '50% 50%'));
 	}
+}
+
+function setGroupDefaults(group) {
+	group.userTitleEnabled = ([null, undefined].includes(group.userTitleEnabled)) ? 1 : group.userTitleEnabled;
+	group.labelColor = validator.escape(String(group.labelColor || '#000000'));
+	group.textColor = validator.escape(String(group.textColor || '#ffffff'));
+	group.icon = validator.escape(String(group.icon || ''));
+	group.createtimeISO = utils.toISOString(group.createtime);
+	group.private = ([null, undefined].includes(group.private)) ? 1 : group.private;
+	group.memberPostCids = group.memberPostCids || '';
+	group.memberPostCidsArray = group.memberPostCids.split(',').map(cid => parseInt(cid, 10)).filter(Boolean);
 }
 
 function escapeGroupData(group) {
